@@ -1,14 +1,13 @@
 import 'bootstrap/dist/css/bootstrap.css';
 
 const ProductListItem = ({item}) => {
-    console.log(item)
 
     return (
         <div className="flex-item">
-            <h4>{item.name}</h4>
+            <p>Category: <span><strong>{item.category}</strong></span><span className="item-price">${item.price}</span></p>
             <img src={item.image}></img>
-            <h6>${item.price}</h6>
-            <button className="btn btn-success">Buy Now</button>
+            
+            <h4>{item.name}</h4>
         </div>
     )
 

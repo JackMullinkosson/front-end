@@ -5,11 +5,10 @@ import ProductListItem from './ProductListItem';
 import { fetchProducts } from '../helpers/fetchProducts';
 import 'bootstrap/dist/css/bootstrap.css';
 
-const ProductList = () =>{
+const ProductList = ({page}) =>{
 
-
-    const products = useSelector((state) => state)
-
+    const products = useSelector((state) => state.products)
+    const total = useSelector((state) => state.total)
     const dispatch = useDispatch();
 
     const initialLoad = async () =>{
@@ -26,10 +25,13 @@ const ProductList = () =>{
         return products.map((item)=> <ProductListItem item={item}/>)
     }
 
-    if (products.length > 0){
+    if (products){
     return (
+        <div>
+        <h5 className='total-results'>Total results: {total}</h5>
         <div className="flex-container">
             <div>{renderProductListItem()}</div>
+        </div>
         </div>
     )
     }
