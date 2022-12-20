@@ -5,12 +5,14 @@ import { fetchProducts } from '../helpers/fetchProducts';
 import { getProducts } from '../actions';
 // import { setPrice } from '../actions'
 
-const SearchBar = ({page}) => {
+const SearchBar = ({page, setPage}) => {
     const [query, setQuery] = useState(null)
     const [item, setItem] = useState(null);
     const [sort, setSort] = useState(null)
     const [category, setCategory] = useState(null)
     const [isSearched, setIsSearched] = useState('')
+    const [currentSortBy, setCurrentSortBy] = useState('default')
+    const [currentPrice, setCurrentPrice] = useState('default')
     const dispatch = useDispatch()
 
     const handleSearch = async (e) => {
@@ -21,12 +23,17 @@ const SearchBar = ({page}) => {
 
     const handleSortByPrice = async (e) => {
         console.log('sorted by price', e.target.value)
+        setIsSearched('yes')
         setSort(e.target.value)
+        setCurrentPrice(e.target.value)
     }
 
     const handleSortByCategory = async (e) => {
         console.log('sorted by category', e.target.value)
+        setIsSearched('yes')
+        setCurrentSortBy(e.target.value)
         setCategory(e.target.value)
+        setPage(1)
     }
 
     const reloadProducts = async () =>{
@@ -43,6 +50,11 @@ const SearchBar = ({page}) => {
     setQuery('')
     setIsSearched(null)
     setItem(null)
+    setSort(null)
+    setCategory('default')
+    setPage(1)
+    setCurrentSortBy('default')
+    setCurrentPrice('default')
   }
 
 
@@ -77,6 +89,7 @@ const SearchBar = ({page}) => {
                       <Form.Select
                         onChange={(e) => handleSortByPrice(e)}
                         aria-label="Default select example"
+                        value={currentPrice}
                       >
                         <option value="default">Sort By Price</option>
                         <option value="lowToHigh">
@@ -95,8 +108,9 @@ const SearchBar = ({page}) => {
                       <Form.Select
                         onChange={(e) => handleSortByCategory(e)}
                         aria-label="Default select example"
+                        value={currentSortBy}
                       >
-                        <option value="default">Sort By Category</option>
+                        <option value='default' >Sort By Category</option>
                         <option value="Tools">
                           Tools
                         </option>
@@ -115,7 +129,7 @@ const SearchBar = ({page}) => {
                         <option value="Movies">
                           Movies
                         </option>
-                        <option value="Thoes">
+                        <option value="Shoes">
                           Shoes
                         </option>
                         <option value="Toys">
@@ -131,7 +145,7 @@ const SearchBar = ({page}) => {
         </Row>
         {isSearched === 'yes' ? (
         <>
-          <button className="btn btn-warning clear-search-results" onClick={handleClearSearchClick}>Clear Search Results</button>
+          <button className="btn btn-warning clear-search-results" onClick={handleClearSearchClick}>Clear Search Filters</button>
           </>
         ) : null}
         

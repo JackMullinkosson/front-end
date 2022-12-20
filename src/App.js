@@ -35,7 +35,7 @@ function App() {
   return (
     <div>
       <h1>Inexhaustive Merchandise Enumeration</h1>
-    <SearchBar page={page}/>
+    <SearchBar page={page} setPage={setPage}/>
     <ProductList/>
     <div className='pagination-box'>
             {renderPageNumbers()}
